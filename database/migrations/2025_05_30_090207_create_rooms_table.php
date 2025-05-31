@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('rooms', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->unique(); // e.g., "Room A", "Room B"
+            $table->string('type'); // e.g., "Classroom", "Laboratory", "Library"
+            $table->integer('capacity'); // Maximum number of students that can fit in the room
             $table->timestamps();
         });
     }

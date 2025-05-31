@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('subjects', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->unique(); // e.g., "Mathematics", "Science"
+            $table->string('code')->unique(); // e.g., "MATH101", "SCI202"
+            $table->text('description')->nullable(); // Description of the subject
             $table->timestamps();
         });
     }

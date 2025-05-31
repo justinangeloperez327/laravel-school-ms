@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CLassSubject;
-use App\Http\Requests\StoreCLassSubjectRequest;
-use App\Http\Requests\UpdateCLassSubjectRequest;
+use App\Models\ClassSubject;
+use App\Http\Requests\StoreClassSubjectRequest;
+use App\Http\Requests\UpdateClassSubjectRequest;
 
-class CLassSubjectController extends Controller
+Class ClassSubjectController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +27,7 @@ class CLassSubjectController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCLassSubjectRequest $request)
+    public function store(StoreClassSubjectRequest $request)
     {
         //
     }
@@ -35,7 +35,7 @@ class CLassSubjectController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(CLassSubject $cLassSubject)
+    public function show(ClassSubject $ClassSubject)
     {
         //
     }
@@ -43,7 +43,7 @@ class CLassSubjectController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(CLassSubject $cLassSubject)
+    public function edit(ClassSubject $ClassSubject)
     {
         //
     }
@@ -51,7 +51,7 @@ class CLassSubjectController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCLassSubjectRequest $request, CLassSubject $cLassSubject)
+    public function update(UpdateClassSubjectRequest $request, ClassSubject $ClassSubject)
     {
         //
     }
@@ -59,7 +59,7 @@ class CLassSubjectController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(CLassSubject $cLassSubject)
+    public function destroy(ClassSubject $ClassSubject)
     {
         //
     }

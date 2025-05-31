@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('academic_years', function (Blueprint $table) {
             $table->id();
+            $table->date('year_start');
+            $table->date('year_end');
+            $table->string('name')->unique(); // e.g., "2025-2026"
+            $table->boolean('active')->default(false); // To indicate if this is the current academic year
             $table->timestamps();
         });
     }

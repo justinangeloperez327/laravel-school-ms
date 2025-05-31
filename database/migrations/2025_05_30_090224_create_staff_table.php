@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('staff', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->string('position')->nullable(); // e.g., janitor, administrative staff, etc.
+            $table->string('department')->nullable(); // e.g., maintenance, administration, etc.
+            $table->date('hire_date')->nullable(); // Date when the staff member was hired
             $table->timestamps();
         });
     }

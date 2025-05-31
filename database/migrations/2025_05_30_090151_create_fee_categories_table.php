@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('fee_categories', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->unique(); // e.g., "Tuition Fee", "Library Fee"
+            $table->string('description')->nullable(); // Description of the fee category
+            $table->decimal('amount', 10, 2); // Amount for the fee category
             $table->timestamps();
         });
     }

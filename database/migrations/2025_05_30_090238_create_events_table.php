@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
+            $table->string('title'); // e.g., "Annual Sports Day", "Science Fair"
+            $table->text('description')->nullable(); // Description of the event
+            $table->date('start_date'); // Start date of the event
+            $table->date('end_date'); // End date of the event
             $table->timestamps();
         });
     }

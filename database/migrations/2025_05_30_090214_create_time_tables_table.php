@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('time_tables', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('school_class_id')->constrained('school_classes')->onDelete('cascade');
+            $table->foreignId('subject_id')->constrained('subjects')->onDelete('cascade');
+            $table->foreignId('teacher_id')->constrained('teachers')->onDelete('cascade');
+            $table->foreignId('room_id')->constrained('rooms')->onDelete('cascade');
+            $table->tinyInteger('day_of_week'); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+            $table->time('start_time'); // Start time of the class
+            $table->time('end_time'); // End time of the class
             $table->timestamps();
         });
     }
