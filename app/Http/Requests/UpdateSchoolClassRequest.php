@@ -11,7 +11,7 @@ class UpdateSchoolClassRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,10 @@ class UpdateSchoolClassRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|string|max:255',
+            'teacher_id' => 'required|exists:teachers,id',
+            'academic_year_id' => 'required|exists:academic_years,id',
+            'section' => 'nullable|string|max:10',
         ];
     }
 }

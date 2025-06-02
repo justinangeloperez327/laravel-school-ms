@@ -11,7 +11,7 @@ class UpdateStudentFeeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,12 @@ class UpdateStudentFeeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'student_id' => 'required|exists:students,id',
+            'fee_category_id' => 'required|exists:fee_categories,id',
+            'amount' => 'required|numeric|min:0',
+            'due_date' => 'required|date',
+            'paid_date' => 'nullable|date',
+            'status' => 'required|in:paid,unpaid,partial',
         ];
     }
 }

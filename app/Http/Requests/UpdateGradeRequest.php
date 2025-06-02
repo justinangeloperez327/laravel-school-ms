@@ -11,7 +11,7 @@ class UpdateGradeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,11 @@ class UpdateGradeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'enrollment_id' => 'required|exists:enrollments,id',
+            'subject_id' => 'required|exists:subjects,id',
+            'term_id' => 'required|exists:terms,id',
+            'grade' => 'required|numeric|min:0|max:100',
+            'remarks' => 'nullable|string|max:255',
         ];
     }
 }

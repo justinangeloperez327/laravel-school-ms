@@ -11,7 +11,7 @@ class UpdateFeeCategoryRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class UpdateFeeCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|string|max:255|unique:fee_categories,name,' . $this->feeCategory->id,
+            'description' => 'nullable|string|max:1000',
+            'amount' => 'required|numeric|min:0',
         ];
     }
 }

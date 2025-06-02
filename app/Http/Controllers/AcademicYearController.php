@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\AcademicYear;
 use App\Http\Requests\StoreAcademicYearRequest;
 use App\Http\Requests\UpdateAcademicYearRequest;
+use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class AcademicYearController extends Controller
 {
@@ -13,7 +15,10 @@ class AcademicYearController extends Controller
      */
     public function index()
     {
-        //
+        $academicYears = AcademicYear::orderBy('year_start', 'desc')->get();
+        return Inertia::render('academic-years/index', [
+            'academicYears' => $academicYears,
+        ]);
     }
 
     /**
@@ -21,7 +26,7 @@ class AcademicYearController extends Controller
      */
     public function create()
     {
-        //
+        return view('academic_years.create');
     }
 
     /**
@@ -29,7 +34,10 @@ class AcademicYearController extends Controller
      */
     public function store(StoreAcademicYearRequest $request)
     {
-        //
+        $academicYear = AcademicYear::create($request->validated());
+
+        return redirect()->route('academic-years.index')
+            ->with('success', 'Academic Year created successfully.');
     }
 
     /**
@@ -37,7 +45,9 @@ class AcademicYearController extends Controller
      */
     public function show(AcademicYear $academicYear)
     {
-        //
+        return Inertia::render('academic-years/show', [
+            'academicYear' => $academicYear,
+        ]);
     }
 
     /**
@@ -45,7 +55,9 @@ class AcademicYearController extends Controller
      */
     public function edit(AcademicYear $academicYear)
     {
-        //
+        return Inertia::render('academic-years/edit', [
+            'academicYear' => $academicYear,
+        ]);
     }
 
     /**
@@ -53,7 +65,10 @@ class AcademicYearController extends Controller
      */
     public function update(UpdateAcademicYearRequest $request, AcademicYear $academicYear)
     {
-        //
+        $academicYear->update($request->validated());
+
+        return redirect()->route('academic-years.index')
+            ->with('success', 'Academic Year updated successfully');
     }
 
     /**
@@ -61,6 +76,24 @@ class AcademicYearController extends Controller
      */
     public function destroy(AcademicYear $academicYear)
     {
-        //
+        $academicYear->delete();
+
+        return redirect()->route('academic-years.index')
+            ->with('success', 'Academic Year deleted successfully');
+    }
+
+    /**
+     * Set academic year as active
+     */
+    public function setActive(AcademicYear $academicYear)
+    {
+        // First, set all academic years as inactive
+        AcademicYear::where('active', true)->update(['active' => false]);
+
+        // Set this academic year as active
+        $academicYear->update(['active' => true]);
+
+        return redirect()->route('academic-years.index')
+            ->with('success', 'Academic Year set as active successfully');
     }
 }

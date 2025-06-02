@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
 use App\Models\Subject;
 use App\Http\Requests\StoreSubjectRequest;
 use App\Http\Requests\UpdateSubjectRequest;
@@ -13,7 +14,10 @@ class SubjectController extends Controller
      */
     public function index()
     {
-        //
+        $subjects = Subject::orderBy('name')->get();
+        return Inertia::render('subjects/index', [
+            'subjects' => $subjects,
+        ]);
     }
 
     /**
@@ -21,7 +25,9 @@ class SubjectController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('subjects/create', [
+            'subject' => new Subject(),
+        ]);
     }
 
     /**
@@ -29,7 +35,10 @@ class SubjectController extends Controller
      */
     public function store(StoreSubjectRequest $request)
     {
-        //
+        $subject = Subject::create($request->validated());
+
+        return redirect()->route('subjects.index')
+            ->with('success', 'Subject created successfully.');
     }
 
     /**
@@ -37,7 +46,11 @@ class SubjectController extends Controller
      */
     public function show(Subject $subject)
     {
-        //
+        $subject->load('schoolClasses');
+        return Inertia::render('subjects/show', [
+            'subject' => $subject,
+            'schoolClasses' => $subject->schoolClasses,
+        ]);
     }
 
     /**
@@ -45,7 +58,9 @@ class SubjectController extends Controller
      */
     public function edit(Subject $subject)
     {
-        //
+        return Inertia::render('subjects/edit', [
+            'subject' => $subject,
+        ]);
     }
 
     /**
@@ -53,7 +68,10 @@ class SubjectController extends Controller
      */
     public function update(UpdateSubjectRequest $request, Subject $subject)
     {
-        //
+        $subject->update($request->validated());
+
+        return redirect()->route('subjects.index')
+            ->with('success', 'Subject updated successfully');
     }
 
     /**
@@ -61,6 +79,9 @@ class SubjectController extends Controller
      */
     public function destroy(Subject $subject)
     {
-        //
+        $subject->delete();
+
+        return redirect()->route('subjects.index')
+            ->with('success', 'Subject deleted successfully');
     }
 }

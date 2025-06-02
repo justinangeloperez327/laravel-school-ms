@@ -11,7 +11,7 @@ class UpdateAcademicYearRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,10 @@ class UpdateAcademicYearRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'year_start' => 'required|date',
+            'year_end' => 'required|date|after:year_start',
+            'name' => 'required|string|max:255',
+            'active' => 'sometimes|boolean',
         ];
     }
 }

@@ -11,7 +11,7 @@ class UpdateEnrollmentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,10 @@ class UpdateEnrollmentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'student_id' => 'required|exists:students,id',
+            'school_class_id' => 'required|exists:school_classes,id',
+            'enrolled_at' => 'required|date',
+            'status' => 'required|string|in:active,graduated,dropped,suspended',
         ];
     }
 }
